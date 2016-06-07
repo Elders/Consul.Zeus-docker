@@ -7,6 +7,8 @@ RUN apt-get update \
 ## SETUP CONSUL
 ADD /consul /var/consul 
 
+RUN mkdir /var/consul/config 
+
 RUN ls -l /var/consul
 
 RUN ip -o -4 addr list
