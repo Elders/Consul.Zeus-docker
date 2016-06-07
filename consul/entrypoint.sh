@@ -52,11 +52,6 @@ fi
 # Look for Consul subcommands.
 echo "Client Binding: $CONSUL_BIND"
 
-if [ -z "$NODE_NAME" ]; then
-    echo "NODE_NAME not specified. Please use  -e HOST_HOSTNAME=my-consul-node"
-    exit 1
-fi
-
 echo "Node name:" $HOST_HOSTNAME
 if [ "$1" = 'agent' ]; then
     shift
@@ -64,7 +59,6 @@ if [ "$1" = 'agent' ]; then
         -server \
         -data-dir="$CONSUL_DATA_DIR" \
         -config-dir="$CONSUL_CONFIG_DIR" \
-        -node="$NODE_NAME" \
         $CONSUL_BIND \
         $CONSUL_CLIENT \
         "$@"
