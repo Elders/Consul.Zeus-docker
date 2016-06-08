@@ -94,7 +94,7 @@ ZEUS_OPTIONS="${ZEUS_OPTIONS//+/$whitespace}"
 cat > /var/consul/config/config.json <<EOF
 {
 	"data_dir": "data",
-    "check_update_interval":"10s",
+    "check_update_interval":"$ZEUS_INTERVAL",
 	"ports": {
 		"http": 8500
 	},
