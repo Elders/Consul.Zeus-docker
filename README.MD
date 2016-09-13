@@ -72,7 +72,7 @@ Executing this will open up all Consul ports and it will configure Zeus to fail 
 Please note that your Consul node **will not start** until you have at least two members in the cluster, you can read more at ["-bootstrap-expect"](https://www.consul.io/docs/agent/options.html#_bootstrap_expect). And you have to also change the following -> {UNIQUE CONSUL NODE/SERVER NAME} {DOCKER HOST IP} {ANY CONSUL NODE IP} and the command should look like this:
 
 ```
-docker run -p -d 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 8301:8301 -p 8302:8302  -p 8300:8300/udp -p 8301:8301/udp -p 8302:8302/udp -p 8600:8600 -p 8600:8600/udp -e ZEUS_OPTIONS="machine+-e+cpu.usage:below:50+-f" --net=host --name consul eldersoss/consul-zeus:latest agent -ui -node=CASSANDRA-NODE-2 -advertise=192.168.99.100 -retry-join=192.168.0.101 -bootstrap -client=192.168.99.100 -bootstrap-expect=2
+docker run -d -p 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 8301:8301 -p 8302:8302  -p 8300:8300/udp -p 8301:8301/udp -p 8302:8302/udp -p 8600:8600 -p 8600:8600/udp -e ZEUS_OPTIONS="machine+-e+cpu.usage:below:50+-f" --net=host --name consul eldersoss/consul-zeus:latest agent -ui -node=CASSANDRA-NODE-2 -advertise=192.168.99.100 -retry-join=192.168.0.101 -client=192.168.99.100 -bootstrap-expect=2
 ```
 
 ##### READ MORE
