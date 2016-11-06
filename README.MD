@@ -51,28 +51,34 @@ Due to the large number of ports beeing exposed here are several quick copy-past
 Before using this please read the Consul Documentation about ["-boostrap"](https://www.consul.io/docs/agent/options.html#_bootstrap) or its possible to have data a **Cluster Outage**...
 
 ```
-docker run -d -p 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 8301:8301 -p 8302:8302  -p 8300:8300/udp -p 8301:8301/udp -p 8302:8302/udp -p 8600:8600 -p 8600:8600/udp -e ZEUS_OPTIONS="machine+-e+cpu.usage:below:50+-f" --net=host --name consul eldersoss/consul-zeus:latest agent -node={UNIQUE CONSUL NODE/SERVER NAME} -ui -advertise={DOCKER HOST IP} -bootstrap -client={DOCKER HOST IP}
+docker run --restart=always -d -p 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 8301:8301 -p 8302:8302  -p 8300:8300/udp -p 8301:8301/udp -p 8302:8302/udp -p 8600:8600 -p 8600:8600/udp -e ZEUS_OPTIONS="machine+-e+cpu.usage:below:50+-f" --net=host --name consul eldersoss/consul-zeus:latest agent -node={UNIQUE CONSUL NODE/SERVER NAME} -ui -advertise={DOCKER HOST IP} -bootstrap -client={DOCKER HOST IP}
 ```
 Executing this will open up all Consul ports and it will configure Zeus to fail if the CPU usage is above 50%. It will also enable the consul administration for you. You can check it at your {DOCKER HOST IP}:8500
 
 Please NOTE that you have to change the following -> {UNIQUE CONSUL NODE/SERVER NAME} {DOCKER HOST IP} {DOCKER HOST IP} and the command should look like this:
 
 ```
-docker run -d -p 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 8301:8301 -p 8302:8302  -p 8300:8300/udp -p 8301:8301/udp -p 8302:8302/udp -p 8600:8600 -p 8600:8600/udp -e ZEUS_OPTIONS="machine+-e+cpu.usage:below:50+-f" --net=host --name consul eldersoss/consul-zeus:latest agent -node=CASSANDRA-NODE-1 -ui -advertise=192.168.99.100 -bootstrap -client=192.168.99.100
+docker run --restart=always -d -p 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 8301:8301 -p 8302:8302  -p 8300:8300/udp -p 8301:8301/udp -p 8302:8302/udp -p 8600:8600 -p 8600:8600/udp -e ZEUS_OPTIONS="machine+-e+cpu.usage:below:50+-f" --net=host --name consul eldersoss/consul-zeus:latest agent -node=CASSANDRA-NODE-1 -ui -advertise=192.168.99.100 -bootstrap -client=192.168.99.100
 ```
 
 ##### SAFE JOINING NODE
 
 
 ```
-docker run -p -d 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 8301:8301 -p 8302:8302  -p 8300:8300/udp -p 8301:8301/udp -p 8302:8302/udp -p 8600:8600 -p 8600:8600/udp -e ZEUS_OPTIONS="machine+-e+cpu.usage:below:50+-f" --net=host --name consul eldersoss/consul-zeus:latest agent -ui -node={UNIQUE CONSUL NODE/SERVER NAME} -advertise={DOCKER HOST IP} -retry-join={ANY CONSUL NODE IP} -bootstrap -client={DOCKER HOST IP} -bootstrap-expect=2
+docker run --restart=always -p -d 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 8301:8301 -p 8302:8302  -p 8300:8300/udp -p 8301:8301/udp -p 8302:8302/udp -p 8600:8600 -p 8600:8600/udp -e ZEUS_OPTIONS="machine+-e+cpu.usage:below:50+-f" --net=host --name consul eldersoss/consul-zeus:latest agent -ui -node={UNIQUE CONSUL NODE/SERVER NAME} -advertise={DOCKER HOST IP} -retry-join={ANY CONSUL NODE IP} -bootstrap -client={DOCKER HOST IP} -bootstrap-expect=2
 ```
 Executing this will open up all Consul ports and it will configure Zeus to fail if the CPU usage is above 50%. It will also join the Consul node into the cluster and it will enable the consul administration for you. You can check it at your {DOCKER HOST IP}:8500
 
 Please note that your Consul node **will not start** until you have at least two members in the cluster, you can read more at ["-bootstrap-expect"](https://www.consul.io/docs/agent/options.html#_bootstrap_expect). And you have to also change the following -> {UNIQUE CONSUL NODE/SERVER NAME} {DOCKER HOST IP} {ANY CONSUL NODE IP} and the command should look like this:
 
 ```
-docker run -d -p 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 8301:8301 -p 8302:8302  -p 8300:8300/udp -p 8301:8301/udp -p 8302:8302/udp -p 8600:8600 -p 8600:8600/udp -e ZEUS_OPTIONS="machine+-e+cpu.usage:below:50+-f" --net=host --name consul eldersoss/consul-zeus:latest agent -ui -node=CASSANDRA-NODE-2 -advertise=192.168.99.100 -retry-join=192.168.0.101 -client=192.168.99.100 -bootstrap-expect=2
+docker run --restart=always -d -p 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 8301:8301 -p 8302:8302  -p 8300:8300/udp -p 8301:8301/udp -p 8302:8302/udp -p 8600:8600 -p 8600:8600/udp -e ZEUS_OPTIONS="machine+-e+cpu.usage:below:50+-f" --net=host --name consul eldersoss/consul-zeus:latest agent -ui -node=CASSANDRA-NODE-2 -advertise=192.168.99.100 -retry-join=192.168.0.101 -client=192.168.99.100 -bootstrap-expect=2
+```
+
+##### NO CHECKS
+
+```
+docker run --restart=always -p -d 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 8301:8301 -p 8302:8302  -p 8300:8300/udp -p 8301:8301/udp -p 8302:8302/udp -p 8600:8600 -p 8600:8600/udp -e ZEUS_OPTIONS="machine+-f" -e ZEUS_INTERVAL=10s --net=host --name consul eldersoss/consul-zeus:latest agent -ui -node={UNIQUE CONSUL NODE/SERVER NAME} -advertise={DOCKER HOST IP} -retry-join={ANY CONSUL NODE IP} -bootstrap -client={DOCKER HOST IP} -bootstrap-expect=2
 ```
 
 ##### READ MORE
