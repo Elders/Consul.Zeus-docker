@@ -78,7 +78,7 @@ docker run --restart=always -d -p 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 830
 ##### NO CHECKS
 
 ```
-docker run --restart=always -p -d 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 8301:8301 -p 8302:8302  -p 8300:8300/udp -p 8301:8301/udp -p 8302:8302/udp -p 8600:8600 -p 8600:8600/udp -e ZEUS_OPTIONS="machine+-f" -e ZEUS_INTERVAL=10s --net=host --name consul eldersoss/consul-zeus:latest agent -ui -node={UNIQUE CONSUL NODE/SERVER NAME} -advertise={DOCKER HOST IP} -retry-join={ANY CONSUL NODE IP} -bootstrap -client={DOCKER HOST IP} -bootstrap-expect=2
+docker run --restart=always -d -p 8500:8500 -p 8400:8400 -p 8300:8300/tcp -p 8301:8301 -p 8302:8302  -p 8300:8300/udp -p 8301:8301/udp -p 8302:8302/udp -p 8600:8600 -p 8600:8600/udp -e ZEUS_OPTIONS="machine+-f" -e ZEUS_INTERVAL=10s --net=host --name consul eldersoss/consul-zeus:release-1.0.6 agent -ui -node={UNIQUE CONSUL NODE/SERVER NAME} -advertise={DOCKER HOST IP} -retry-join={ANY CONSUL NODE IP} -client={DOCKER HOST IP} -bootstrap-expect=2
 ```
 
 ##### READ MORE
