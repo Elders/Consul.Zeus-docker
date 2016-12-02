@@ -98,7 +98,7 @@ cat > /var/consul/config/config.json <<EOF
 	"ports": {
 		"http": 8500
 	},
-    "log-level": "ERR",
+    "log_level": "ERR",
 	"checks": [{
 		"id": "sys-health",
 		"name": "System Information",
