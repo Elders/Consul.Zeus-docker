@@ -1,2 +1,2 @@
-docker rmi eldersoss/consul-healthcheck:latest
-docker build -t eldersoss/consul-healthcheck:latest .
+docker rmi eldersoss/consul-debug:latest
+docker build -t eldersoss/consul-debug:latest .
