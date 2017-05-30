@@ -102,7 +102,7 @@ cat > /var/consul/config/config.json <<EOF
 	"checks": [{
 		"id": "sys-health",
 		"name": "System Information",
-		"script": "/var/zeus/debian.8.2-x64/Zeus $ZEUS_OPTIONS",
+		"script": "dotnet run /var/zeus/debian.8.2-x64/Zeus.dll $ZEUS_OPTIONS",
 		"interval": "$ZEUS_INTERVAL",
 		"timeout": "1m"
 	}]

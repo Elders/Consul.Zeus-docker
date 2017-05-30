@@ -1,2 +1,2 @@
-clean-images-and-containers
+docker rmi eldersoss/consul-healthcheck:latest
 docker build -t eldersoss/consul-healthcheck:latest .

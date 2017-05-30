@@ -14,7 +14,6 @@ docker run \
            -e ZEUS_OPTIONS="machine+-e+cpu.usage:below:30+-f" \
            -e ZEUS_INTERVAL=10s \
            --net=host --name consul eldersoss/consul-healthcheck:latest agent -ui -advertise=192.168.99.100 -retry-join=192.168.0.102 -bootstrap -client=192.168.99.100
-	  
-      docker rm -f consul
+docker rm -f consul
 
 	  

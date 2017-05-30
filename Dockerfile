@@ -33,7 +33,7 @@ EXPOSE 8301 8301/udp 8302 8302/udp
 EXPOSE 8400 8500 8600 8600/udp
 
 ### SETUP Zeus
-RUN wget https://github.com/Elders/Zeus/releases/download/1.0.6/zeus-debian.8.2-x64.zip --no-check-certificate
+RUN wget https://github.com/Elders/Zeus/releases/download/1.0.7/zeus-debian.8.2-x64.zip --no-check-certificate
 
 RUN unzip zeus-debian.8.2-x64.zip -d /var/zeus
 
