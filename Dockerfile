@@ -17,7 +17,7 @@ RUN chmod -R 777 /var/consul
 
 RUN wget https://releases.hashicorp.com/consul/0.8.3/consul_0.8.3_linux_amd64.zip --no-check-certificate
 
-RUN unzip consul_0.8.1_linux_amd64.zip -d /var/consul
+RUN unzip consul_0.8.3_linux_amd64.zip -d /var/consul
 
 # Server RPC is used for communication between Consul clients and servers for internal
 # request forwarding.
