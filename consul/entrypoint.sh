@@ -94,11 +94,17 @@ ZEUS_OPTIONS="${ZEUS_OPTIONS//+/$whitespace}"
 cat > /var/consul/config/config.json <<EOF
 {
 	"data_dir": "data",
-    "check_update_interval":"$ZEUS_INTERVAL",
+	"check_update_interval": "$ZEUS_INTERVAL",
 	"ports": {
 		"http": 8500
 	},
-    "log_level": "ERR",
+	"retry_join_azure": {
+		"subscription_id": "$AZURE_SUB_ID",
+		"tenant_id": "$AZURE_TENANT_ID",
+		"client_id": "$AZURE_CLIENT_ID",
+		"secret_access_key": "$AZURE_SECRET"
+	},
+	"log_level": "ERR",
 	"checks": [{
 		"id": "sys-health",
 		"name": "System Information",
