@@ -87,6 +87,15 @@ if [ -z "$ZEUS_OPTIONS" ]; then
    ZEUS_OPTIONS="machine -f"
    echo You could set zeus options with passing to docker -e ZEUS_OPTIONS=machine+-e+cpu.usage:above:30+-f replacing hte whitespaces with + because of the Docker parser
 fi
+
+AZURE_DISCOVERY="\"retry_join\": [\"provider=azure tag_name=$AZURE_TAG_NAME tag_value=$AZURE_TAG_VALUE tenant_id=$AZURE_TENANT_ID client_id=$AZURE_CLIENT_ID subscription_id=$AZURE_SUB_ID secret_access_key=$AZURE_SECRET\"],"
+if [ -z "$AZURE_SUB_ID" ]; then
+   echo AZURE_SUB_ID not set
+   echo AZURE discovery mode not enabled
+   AZURE_DISCOVERY=""
+   echo You could enable azure discovery by setting docker -e AZURE_SUB_ID=xxx -e AZURE_TENANT_ID=xxx -e AZURE_CLIENT_ID=xxx -e AZURE_SECRET=xxx -e AZURE_TAG_NAME=xxx -e AZURE_TAG_VALUE=xxx 
+   echo ALL azure parser SHOULD BE URL ENCODED
+fi
 echo OPTS $ZEUS_OPTIONS
 original_string='i love Suzi and Marry'
 whitespace=' '
@@ -98,12 +107,7 @@ cat > /var/consul/config/config.json <<EOF
 	"ports": {
 		"http": 8500
 	},
-	"retry_join_azure": {
-		"subscription_id": "$AZURE_SUB_ID",
-		"tenant_id": "$AZURE_TENANT_ID",
-		"client_id": "$AZURE_CLIENT_ID",
-		"secret_access_key": "$AZURE_SECRET"
-	},
+  $AZURE_DISCOVERY
 	"log_level": "ERR",
 	"checks": [{
 		"id": "sys-health",
@@ -111,7 +115,8 @@ cat > /var/consul/config/config.json <<EOF
 		"script": "/var/zeus/debian.8-x64/Zeus $ZEUS_OPTIONS",
 		"interval": "$ZEUS_INTERVAL",
 		"timeout": "1m"
-	}]
+	}],
+  "enable_script_checks": true
 }
 EOF
 
