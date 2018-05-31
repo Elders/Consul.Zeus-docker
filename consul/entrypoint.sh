@@ -56,7 +56,6 @@ echo "Node name:" $HOST_HOSTNAME
 if [ "$1" = 'agent' ]; then
     shift
     set -- ./consul/consul agent \
-        -server \
         -data-dir="$CONSUL_DATA_DIR" \
         -config-dir="$CONSUL_CONFIG_DIR" \
         $CONSUL_BIND \
