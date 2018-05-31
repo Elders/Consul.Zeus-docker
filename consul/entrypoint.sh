@@ -111,7 +111,7 @@ cat > /var/consul/config/config.json <<EOF
 	"checks": [{
 		"id": "sys-health",
 		"name": "System Information",
-		"script": "/var/zeus/debian.8-x64/Zeus $ZEUS_OPTIONS",
+		"args": "/var/zeus/debian.8-x64/Zeus $ZEUS_OPTIONS",
 		"interval": "$ZEUS_INTERVAL",
 		"timeout": "1m"
 	}],
