@@ -96,9 +96,8 @@ if [ -z "$AZURE_SUB_ID" ]; then
    echo ALL azure parser SHOULD BE URL ENCODED
 fi
 echo OPTS $ZEUS_OPTIONS
-original_string='i love Suzi and Marry'
-whitespace=' '
-ZEUS_OPTIONS="${ZEUS_OPTIONS//+/$whitespace}"
+delimiter='", "'
+ZEUS_OPTIONS="${ZEUS_OPTIONS//+/$delimiter}"
 cat > /var/consul/config/config.json <<EOF
 {
 	"data_dir": "data",
@@ -111,7 +110,7 @@ cat > /var/consul/config/config.json <<EOF
 	"checks": [{
 		"id": "sys-health",
 		"name": "System Information",
-		"args": "/var/zeus/debian.8-x64/Zeus $ZEUS_OPTIONS",
+		"args": ["/var/zeus/debian.8-x64/Zeus", "$ZEUS_OPTIONS"],
 		"interval": "$ZEUS_INTERVAL",
 		"timeout": "1m"
 	}],
